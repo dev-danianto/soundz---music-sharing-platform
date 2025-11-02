@@ -1,0 +1,11 @@
+.env/
+# Virtual environments
+venv/
+env/
+.env
+
+# Dependencies
+*.pyc
+__pycache__/
+
+node_modules/

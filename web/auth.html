@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Title PAGE -->
+    <title>Auth - Soundz</title>
+
+    <!-- Konektor Tailwind CDN, Nanti Ubah Ke Compiler Lokal -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+  </head>
+
+  <!-- Bagian Body -->
+  <body
+    class="bg-gradient-to-br from-black via-gray-950 to-black text-white min-h-screen flex items-center justify-center px-4"
+  >
+    <div
+      class="backdrop-blur-md bg-white/5 border border-white/10 p-8 rounded-3xl w-full max-w-md"
+    >
+      <!-- Header -->
+      <div class="text-center mb-8">
+        <div
+          class="w-16 h-16 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-2xl flex items-center justify-center mx-auto mb-4"
+        >
+          <i class="fas fa-music text-white text-2xl"></i>
+        </div>
+        <h2 id="authTitle" class="text-3xl font-bold mb-2">Welcome Back</h2>
+        <p id="authSubtitle" class="text-gray-400">Sign in to continue</p>
+      </div>
+
+      <!-- Message -->
+      <div id="msg" class="hidden p-4 rounded-lg mb-6 text-sm border"></div>
+
+      <!-- Form -->
+      <form id="form" class="space-y-4" onsubmit="handleAuth(event)">
+        <!-- Email Field -->
+        <div id="emailDiv" class="hidden">
+          <label class="block text-sm font-medium mb-2 text-gray-300"
+            >Email Address</label
+          >
+          <input
+            type="email"
+            id="email"
+            placeholder="you@example.com"
+            class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg focus:border-yellow-400 focus:outline-none transition text-white placeholder-gray-500"
+          />
+        </div>
+
+        <!-- Username Field -->
+        <div>
+          <label class="block text-sm font-medium mb-2 text-gray-300"
+            >Username</label
+          >
+          <input
+            type="text"
+            id="username"
+            placeholder="your_username"
+            class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg focus:border-yellow-400 focus:outline-none transition text-white placeholder-gray-500"
+            required
+          />
+        </div>
+
+        <!-- Password Field -->
+        <div>
+          <label class="block text-sm font-medium mb-2 text-gray-300"
+            >Password</label
+          >
+          <input
+            type="password"
+            id="password"
+            placeholder="••••••••"
+            class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg focus:border-yellow-400 focus:outline-none transition text-white placeholder-gray-500"
+            required
+          />
+        </div>
+
+        <!-- Confirm Password Field -->
+        <div id="confirmDiv" class="hidden">
+          <label class="block text-sm font-medium mb-2 text-gray-300"
+            >Confirm Password</label
+          >
+          <input
+            type="password"
+            id="confirm"
+            placeholder="••••••••"
+            class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg focus:border-yellow-400 focus:outline-none transition text-white placeholder-gray-500"
+          />
+        </div>
+
+        <!-- Submit Button -->
+        <button
+          type="submit"
+          class="w-full bg-gradient-to-r from-yellow-400 to-orange-500 text-black font-bold py-3 rounded-lg hover:shadow-lg hover:shadow-yellow-500/50 transition transform hover:-translate-y-0.5 mt-6"
+        >
+          <i class="fas fa-arrow-right mr-2"></i>
+          <span id="submitText">Sign In</span>
+        </button>
+      </form>
+
+      <!-- Divider -->
+      <div class="relative my-6">
+        <div class="absolute inset-0 flex items-center">
+          <div class="w-full border-t border-white/10"></div>
+        </div>
+        <div class="relative flex justify-center text-sm">
+          <span
+            class="px-4 bg-gradient-to-br from-black via-gray-950 to-black text-gray-400"
+            >or</span
+          >
+        </div>
+      </div>
+
+      <!-- Toggle Mode -->
+      <p class="text-center text-gray-400 mb-4">
+        <a
+          href="#"
+          onclick="toggleMode()"
+          class="text-yellow-400 font-bold hover:text-yellow-300 transition"
+        >
+          <span id="toggleText">Don't have an account? Sign up</span>
+        </a>
+      </p>
+
+      <!-- Back Link -->
+      <a
+        href="index.html"
+        class="block text-center text-gray-400 hover:text-yellow-400 transition text-sm mt-6"
+      >
+        <i class="fas fa-arrow-left mr-2"></i>Back to Home
+      </a>
+    </div>
+
+    <script src="eel.js"></script>
+    <script src="js/auth.js"></script>
+  </body>
+</html>

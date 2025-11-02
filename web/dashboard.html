@@ -1,0 +1,994 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard - Soundz</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      /* Custom scrollbar for modern look */
+      ::-webkit-scrollbar {
+        width: 6px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #000;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #4b5563;
+        border-radius: 3px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #6b7280;
+      }
+    </style>
+  </head>
+  <body class="text-white bg-black font-sans">
+    <div class="flex flex-col lg:flex-row h-screen">
+      <!-- Mobile Header for Sidebar Toggle -->
+      <div
+        class="lg:hidden bg-black border-b border-gray-800 p-4 flex items-center justify-between shadow-sm"
+      >
+        <button
+          onclick="toggleSidebar()"
+          class="text-gray-400 hover:text-white p-2 rounded-full hover:bg-gray-800 transition-all duration-200"
+        >
+          <i class="fas fa-bars text-xl"></i>
+        </button>
+        <img
+          src="./assets/images/2D_logo-removebg-preview.png"
+          alt="Soundz"
+          class="h-8 w-auto object-contain"
+        />
+        <div class="w-6">Soundz</div>
+        <!-- Spacer for balance -->
+      </div>
+
+      <!-- Sidebar -->
+      <aside
+        class="w-full lg:w-64 bg-black border-b lg:border-b-0 lg:border-r border-gray-800 p-4 lg:p-6 overflow-y-auto fixed lg:static inset-y-0 left-0 z-40 transform -translate-x-full lg:translate-x-0 transition-transform duration-300 ease-in-out hidden lg:block shadow-lg"
+        id="sidebar"
+      >
+        <div
+          class="flex items-center justify-between lg:justify-start gap-2 mb-6 lg:mb-8"
+        >
+          <img
+            src="./assets/images/2D_logo-removebg-preview.png"
+            alt="Soundz"
+            class="h-8 w-auto object-contain hidden lg:block"
+          />
+          <button
+            onclick="toggleSidebar()"
+            class="lg:hidden text-gray-400 hover:text-white p-1 rounded-full hover:bg-gray-800 transition-all duration-200"
+          >
+            <i class="fas fa-times text-lg"></i>
+          </button>
+        </div>
+
+        <nav
+          class="space-y-1 mb-6 lg:mb-8 flex lg:flex-col gap-2 lg:gap-0 overflow-x-auto lg:overflow-x-visible pb-4 lg:pb-0"
+        >
+          <a
+            href="#"
+            onclick="section('lib')"
+            class="nav-link flex-shrink-0 lg:flex-shrink block px-3 lg:px-4 py-2.5 rounded-xl bg-yellow-500/10 text-yellow-400 font-medium text-xs lg:text-sm hover:bg-yellow-500/20 transition-all duration-200 whitespace-nowrap lg:whitespace-normal active:scale-95 shadow-sm"
+          >
+            <i class="fas fa-home w-4 lg:w-5 mr-2 lg:mr-3"></i>
+            <span class="hidden sm:inline">Library</span>
+          </a>
+          <a
+            href="#"
+            onclick="section('pl')"
+            class="nav-link flex-shrink-0 lg:flex-shrink block px-3 lg:px-4 py-2.5 rounded-xl text-gray-400 font-medium text-xs lg:text-sm hover:text-white hover:bg-gray-800 transition-all duration-200 whitespace-nowrap lg:whitespace-normal active:scale-95 shadow-sm"
+          >
+            <i class="fas fa-list w-4 lg:w-5 mr-2 lg:mr-3"></i>
+            <span class="hidden sm:inline">Playlists</span>
+          </a>
+          <a
+            href="#"
+            onclick="section('fav')"
+            class="nav-link flex-shrink-0 lg:flex-shrink block px-3 lg:px-4 py-2.5 rounded-xl text-gray-400 font-medium text-xs lg:text-sm hover:text-white hover:bg-gray-800 transition-all duration-200 whitespace-nowrap lg:whitespace-normal active:scale-95 shadow-sm"
+          >
+            <i class="fas fa-heart w-4 lg:w-5 mr-2 lg:mr-3"></i>
+            <span class="hidden sm:inline">Favorites</span>
+          </a>
+          <a
+            href="#"
+            onclick="showUploadModal()"
+            class="nav-link flex-shrink-0 lg:flex-shrink block px-3 lg:px-4 py-2.5 rounded-xl text-gray-400 font-medium text-xs lg:text-sm hover:text-white hover:bg-gray-800 transition-all duration-200 whitespace-nowrap lg:whitespace-normal active:scale-95 shadow-sm"
+          >
+            <i class="fas fa-upload w-4 lg:w-5 mr-2 lg:mr-3"></i>
+            <span class="hidden sm:inline">Upload</span>
+          </a>
+        </nav>
+
+        <button
+          onclick="logout()"
+          class="w-full px-3 lg:px-4 py-2.5 bg-red-900/20 text-red-400 rounded-xl font-medium text-xs lg:text-sm hover:bg-red-900/30 transition-all duration-200 active:scale-95 shadow-sm"
+        >
+          <i class="fas fa-sign-out-alt mr-2"></i>Logout
+        </button>
+      </aside>
+
+      <!-- Overlay for Mobile Sidebar -->
+      <div
+        id="sidebarOverlay"
+        class="fixed inset-0 bg-black/50 z-30 lg:hidden hidden"
+        onclick="toggleSidebar()"
+      ></div>
+
+      <!-- Main Content -->
+      <div
+        class="flex-1 flex flex-col transition-all duration-300 lg:ml-0"
+        id="contentBg"
+      >
+        <!-- Header -->
+        <div
+          class="bg-black border-b border-gray-800 px-4 lg:px-8 py-3 lg:py-4 flex flex-col sm:flex-row gap-3 sm:gap-4 sm:justify-between sm:items-center shadow-sm"
+        >
+          <h2 id="sectionTitle" class="text-lg lg:text-xl font-semibold">
+            Library
+          </h2>
+          <input
+            type="text"
+            id="search"
+            placeholder="Search songs, artists..."
+            onkeyup="searchSongs()"
+            class="px-3 lg:px-4 py-2.5 bg-gray-900 border border-gray-700 rounded-xl text-sm focus:border-yellow-400 focus:outline-none focus:ring-2 focus:ring-yellow-400/20 transition-all duration-200 w-full sm:w-64 placeholder-gray-500"
+          />
+        </div>
+
+        <!-- Content Area -->
+        <div class="flex-1 overflow-y-auto p-3 lg:p-8 bg-black">
+          <!-- Library Section -->
+          <div
+            id="lib"
+            class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 lg:gap-6"
+          ></div>
+
+          <!-- Playlists Section -->
+          <div id="pl" class="hidden">
+            <button
+              onclick="showPlaylistModal()"
+              class="mb-6 px-4 lg:px-6 py-2.5 bg-gradient-to-r from-yellow-400 to-yellow-500 text-black rounded-xl font-semibold text-sm hover:from-yellow-300 hover:to-yellow-400 transition-all duration-200 active:scale-95 shadow-lg"
+            >
+              <i class="fas fa-plus mr-2"></i>+ New Playlist
+            </button>
+            <div
+              id="playlistsGrid"
+              class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 lg:gap-6"
+            ></div>
+          </div>
+
+          <!-- Favorites Section -->
+          <div
+            id="fav"
+            class="hidden grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 lg:gap-6"
+          ></div>
+        </div>
+
+        <!-- Full Player (Hidden when minimized or no song) -->
+        <div
+          id="fullPlayer"
+          class="bg-black border-t border-gray-800 px-3 lg:px-8 py-4 lg:py-6 hidden shadow-lg"
+        >
+          <div class="flex items-center justify-between mb-3 lg:mb-4">
+            <button
+              id="minimizeBtn"
+              onclick="togglePlayerSize()"
+              class="text-gray-400 hover:text-white p-2 rounded-full hover:bg-gray-800 transition-all duration-200"
+            >
+              <i class="fas fa-chevron-up text-sm"></i>
+            </button>
+          </div>
+          <div class="flex items-center gap-2 lg:gap-4 mb-3 lg:mb-4">
+            <img
+              id="playerCover"
+              src="https://via.placeholder.com/50"
+              class="w-10 h-10 lg:w-12 lg:h-12 rounded-lg object-cover flex-shrink-0 shadow-md"
+              alt="Cover"
+            />
+            <div class="flex-1 min-w-0">
+              <p
+                id="playerTitle"
+                class="font-semibold text-yellow-400 truncate text-sm lg:text-base"
+              >
+                No song
+              </p>
+              <p id="playerArtist" class="text-xs text-gray-400 truncate">
+                Unknown
+              </p>
+            </div>
+            <div class="flex items-center gap-2">
+              <span
+                class="text-xs text-gray-500 whitespace-nowrap hidden sm:inline"
+                ><span id="currentTime">0:00</span> /
+                <span id="duration">0:00</span></span
+              >
+              <button
+                id="volumeBtn"
+                class="text-gray-400 hover:text-white p-2 rounded-full hover:bg-gray-800 transition-all duration-200"
+              >
+                <i class="fas fa-volume-up text-sm"></i>
+              </button>
+            </div>
+          </div>
+          <input
+            type="range"
+            id="progressBar"
+            min="0"
+            max="100"
+            value="0"
+            class="w-full mb-3 lg:mb-4 accent-yellow-400 cursor-pointer h-1.5 rounded-full shadow-sm transition-all duration-200"
+          />
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-3 lg:gap-4">
+              <button
+                id="prevBtn"
+                onclick="previousSong()"
+                class="text-gray-400 hover:text-yellow-400 p-2 rounded-full hover:bg-gray-800 transition-all duration-200 text-sm"
+              >
+                <i class="fas fa-step-backward"></i>
+              </button>
+              <button
+                id="playBtn"
+                onclick="togglePlay()"
+                class="w-10 h-10 lg:w-12 lg:h-12 bg-gradient-to-r from-yellow-400 to-yellow-500 text-black rounded-full hover:from-yellow-300 hover:to-yellow-400 transition-all duration-200 flex items-center justify-center active:scale-95 shadow-lg text-sm lg:text-base"
+              >
+                <i class="fas fa-play"></i>
+              </button>
+              <button
+                id="nextBtn"
+                onclick="nextSong()"
+                class="text-gray-400 hover:text-yellow-400 p-2 rounded-full hover:bg-gray-800 transition-all duration-200 text-sm"
+              >
+                <i class="fas fa-step-forward"></i>
+              </button>
+            </div>
+            <button
+              id="favoriteBtn"
+              onclick="toggleFavorite()"
+              class="text-gray-400 hover:text-yellow-400 transition-all duration-200 text-lg lg:text-xl p-2 rounded-full hover:bg-gray-800 active:scale-95"
+            >
+              <i class="far fa-heart"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Mini Player (Hidden initially, shows when minimized) -->
+        <div
+          id="miniPlayer"
+          class="bg-black border-t border-gray-800 px-3 lg:px-4 py-2.5 hidden fixed bottom-0 left-0 right-0 z-50 shadow-2xl"
+        >
+          <div class="flex items-center gap-3">
+            <img
+              id="miniCover"
+              src="https://via.placeholder.com/40"
+              class="w-8 h-8 lg:w-10 lg:h-10 rounded object-cover flex-shrink-0 shadow-sm"
+              alt="Cover"
+            />
+            <div class="flex-1 min-w-0 flex items-center justify-between">
+              <div class="flex-1 min-w-0">
+                <p
+                  id="miniTitle"
+                  class="font-semibold text-yellow-400 truncate text-xs lg:text-sm"
+                >
+                  No song
+                </p>
+                <p id="miniArtist" class="text-xs text-gray-400 truncate">
+                  Unknown
+                </p>
+              </div>
+              <div class="flex items-center gap-2 flex-shrink-0">
+                <button
+                  id="miniPrev"
+                  onclick="previousSong()"
+                  class="text-gray-400 hover:text-yellow-400 p-1 rounded-full hover:bg-gray-800 transition-all duration-200"
+                >
+                  <i class="fas fa-step-backward text-sm"></i>
+                </button>
+                <button
+                  id="miniPlayBtn"
+                  onclick="togglePlay()"
+                  class="w-8 h-8 lg:w-10 lg:h-10 bg-gradient-to-r from-yellow-400 to-yellow-500 text-black rounded-full hover:from-yellow-300 hover:to-yellow-400 transition-all duration-200 flex items-center justify-center active:scale-95 shadow-md text-xs"
+                >
+                  <i class="fas fa-pause"></i>
+                </button>
+                <button
+                  id="miniNext"
+                  onclick="nextSong()"
+                  class="text-gray-400 hover:text-yellow-400 p-1 rounded-full hover:bg-gray-800 transition-all duration-200"
+                >
+                  <i class="fas fa-step-forward text-sm"></i>
+                </button>
+                <button
+                  onclick="togglePlayerSize()"
+                  class="text-gray-400 hover:text-white p-1 rounded-full hover:bg-gray-800 transition-all duration-200 ml-2"
+                >
+                  <i class="fas fa-chevron-down text-sm"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          <input
+            type="range"
+            id="miniProgress"
+            min="0"
+            max="100"
+            value="0"
+            class="w-full mt-2 accent-yellow-400 cursor-pointer h-1 rounded-full"
+          />
+        </div>
+      </div>
+    </div>
+
+    <!-- Upload Modal -->
+    <div
+      id="uploadModal"
+      class="hidden fixed inset-0 bg-black/50 flex items-center justify-center z-50 overflow-y-auto p-4"
+    >
+      <div
+        class="bg-black border border-gray-800 rounded-2xl p-6 lg:p-8 w-full max-w-2xl mx-4 lg:mx-auto shadow-2xl"
+      >
+        <div class="flex justify-between items-center mb-6">
+          <h3 class="text-xl lg:text-2xl font-semibold text-white">
+            Upload Song
+          </h3>
+          <button
+            onclick="closeUploadModal()"
+            class="text-gray-400 hover:text-white transition-all duration-200 p-2 rounded-full hover:bg-gray-800 active:scale-95"
+          >
+            <i class="fas fa-times text-lg"></i>
+          </button>
+        </div>
+
+        <form
+          id="uploadForm"
+          class="space-y-4 lg:space-y-5"
+          onsubmit="upload(event)"
+        >
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 lg:gap-4">
+            <div>
+              <label class="block text-sm font-medium text-gray-300 mb-2"
+                >Title *</label
+              >
+              <input
+                type="text"
+                id="title"
+                placeholder="Song title"
+                class="w-full px-3 lg:px-4 py-2.5 bg-gray-900 border border-gray-700 rounded-xl focus:border-yellow-400 focus:outline-none focus:ring-2 focus:ring-yellow-400/20 transition-all duration-200 text-sm placeholder-gray-500"
+                required
+              />
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-300 mb-2"
+                >Artist *</label
+              >
+              <input
+                type="text"
+                id="artist"
+                placeholder="Artist name"
+                class="w-full px-3 lg:px-4 py-2.5 bg-gray-900 border border-gray-700 rounded-xl focus:border-yellow-400 focus:outline-none focus:ring-2 focus:ring-yellow-400/20 transition-all duration-200 text-sm placeholder-gray-500"
+                required
+              />
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 lg:gap-4">
+            <div>
+              <label class="block text-sm font-medium text-gray-300 mb-2"
+                >Genre</label
+              >
+              <input
+                type="text"
+                id="genre"
+                placeholder="e.g., Pop, Rock"
+                class="w-full px-3 lg:px-4 py-2.5 bg-gray-900 border border-gray-700 rounded-xl focus:border-yellow-400 focus:outline-none focus:ring-2 focus:ring-yellow-400/20 transition-all duration-200 text-sm placeholder-gray-500"
+              />
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-300 mb-2"
+                >Album</label
+              >
+              <input
+                type="text"
+                id="album"
+                placeholder="Album name"
+                class="w-full px-3 lg:px-4 py-2.5 bg-gray-900 border border-gray-700 rounded-xl focus:border-yellow-400 focus:outline-none focus:ring-2 focus:ring-yellow-400/20 transition-all duration-200 text-sm placeholder-gray-500"
+              />
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 lg:gap-4">
+            <div
+              class="border-2 border-dashed border-gray-700 rounded-xl p-4 lg:p-6 text-center cursor-pointer hover:border-yellow-400 transition-all duration-200 active:scale-95 shadow-sm hover:shadow-md"
+              onclick="document.getElementById('audio').click()"
+            >
+              <input
+                type="file"
+                id="audio"
+                accept="audio/*"
+                class="hidden"
+                required
+              />
+              <i
+                class="fas fa-music text-yellow-400 text-xl lg:text-2xl mb-2 block"
+              ></i>
+              <p id="audioName" class="text-sm text-gray-400 font-medium">
+                Choose audio file
+              </p>
+            </div>
+            <div
+              class="border-2 border-dashed border-gray-700 rounded-xl p-4 lg:p-6 text-center cursor-pointer hover:border-yellow-400 transition-all duration-200 active:scale-95 shadow-sm hover:shadow-md"
+              onclick="document.getElementById('cover').click()"
+            >
+              <input type="file" id="cover" accept="image/*" class="hidden" />
+              <i
+                class="fas fa-image text-yellow-400 text-xl lg:text-2xl mb-2 block"
+              ></i>
+              <p id="coverName" class="text-sm text-gray-400 font-medium">
+                Choose cover image
+              </p>
+            </div>
+          </div>
+
+          <div id="progress" class="hidden">
+            <div
+              class="w-full bg-gray-800 h-2 rounded-full mb-2 overflow-hidden"
+            >
+              <div
+                id="bar"
+                class="bg-gradient-to-r from-yellow-400 to-yellow-500 h-2 rounded-full transition-all duration-300 shadow-sm"
+                style="width: 0%"
+              ></div>
+            </div>
+            <p id="pct" class="text-sm text-gray-400 text-center">
+              Uploading...
+            </p>
+          </div>
+
+          <div
+            id="uploadMsg"
+            class="hidden p-3 rounded-xl text-sm text-center"
+          ></div>
+
+          <div class="flex gap-2 pt-3 lg:pt-4">
+            <button
+              type="submit"
+              class="flex-1 bg-gradient-to-r from-yellow-400 to-yellow-500 text-black font-semibold py-2.5 rounded-xl hover:from-yellow-300 hover:to-yellow-400 transition-all duration-200 active:scale-95 text-sm shadow-lg"
+            >
+              <i class="fas fa-upload mr-2"></i>Upload Song
+            </button>
+            <button
+              type="button"
+              onclick="closeUploadModal()"
+              class="flex-1 bg-gray-800 text-white font-semibold py-2.5 rounded-xl hover:bg-gray-700 transition-all duration-200 active:scale-95 text-sm shadow-sm"
+            >
+              Cancel
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Playlist Modal -->
+    <div
+      id="playlistModal"
+      class="hidden fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4"
+    >
+      <div
+        class="bg-black border border-gray-800 rounded-2xl p-6 w-full max-w-md mx-4 shadow-2xl"
+      >
+        <h3 class="text-lg font-semibold mb-4 text-white">Create Playlist</h3>
+        <input
+          type="text"
+          id="playlistName"
+          placeholder="Playlist name"
+          class="w-full px-4 py-2.5 bg-gray-900 border border-gray-700 rounded-xl mb-4 focus:border-yellow-400 focus:outline-none focus:ring-2 focus:ring-yellow-400/20 transition-all duration-200 text-sm placeholder-gray-500"
+        />
+        <textarea
+          id="playlistDesc"
+          placeholder="Description (optional)"
+          class="w-full px-4 py-2.5 bg-gray-900 border border-gray-700 rounded-xl mb-4 h-20 focus:border-yellow-400 focus:outline-none focus:ring-2 focus:ring-yellow-400/20 transition-all duration-200 text-sm resize-none placeholder-gray-500"
+        ></textarea>
+        <div class="flex gap-2">
+          <button
+            onclick="createPlaylist()"
+            class="flex-1 bg-gradient-to-r from-yellow-400 to-yellow-500 text-black font-semibold py-2.5 rounded-xl hover:from-yellow-300 hover:to-yellow-400 transition-all duration-200 active:scale-95 text-sm shadow-lg"
+          >
+            Create
+          </button>
+          <button
+            onclick="closePlaylistModal()"
+            class="flex-1 bg-gray-800 text-white font-semibold py-2.5 rounded-xl hover:bg-gray-700 transition-all duration-200 active:scale-95 text-sm shadow-sm"
+          >
+            Cancel
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <audio id="audioPlayer"></audio>
+
+    <script src="eel.js"></script>
+    <script>
+      // State
+      let currentUser = localStorage.getItem("uid");
+      let currentSongs = [];
+      let isSongLoaded = false;
+      let isMinimized = false;
+      let currentSongIndex = -1; // For next/prev
+      const audioPlayer = document.getElementById("audioPlayer");
+      const progressBar = document.getElementById("progressBar");
+      const miniProgress = document.getElementById("miniProgress");
+      const playBtn = document.getElementById("playBtn");
+      const miniPlayBtn = document.getElementById("miniPlayBtn");
+      const fullPlayer = document.getElementById("fullPlayer");
+      const miniPlayer = document.getElementById("miniPlayer");
+
+      const backgroundGradients = {
+        lib: "bg-gradient-to-b from-blue-900/5 via-black to-black",
+        pl: "bg-gradient-to-b from-purple-900/5 via-black to-black",
+        fav: "bg-gradient-to-b from-red-900/5 via-black to-black",
+      };
+
+      // Function to update player visibility
+      function updatePlayerVisibility() {
+        if (isSongLoaded && audioPlayer.src) {
+          if (isMinimized) {
+            showMiniPlayer();
+          } else {
+            showFullPlayer();
+          }
+          syncPlayerInfo();
+        } else {
+          hidePlayer();
+          // Reset display when hidden
+          resetPlayerDisplay();
+        }
+      }
+
+      function showFullPlayer() {
+        fullPlayer.classList.remove("hidden");
+        miniPlayer.classList.add("hidden");
+        isMinimized = false;
+        document.getElementById("minimizeBtn").innerHTML =
+          '<i class="fas fa-chevron-up text-sm"></i>';
+      }
+
+      function showMiniPlayer() {
+        fullPlayer.classList.add("hidden");
+        miniPlayer.classList.remove("hidden");
+        isMinimized = true;
+        document.querySelector("#miniPlayer button:last-child i").innerHTML =
+          '<i class="fas fa-chevron-down text-sm"></i>';
+      }
+
+      function hidePlayer() {
+        fullPlayer.classList.add("hidden");
+        miniPlayer.classList.add("hidden");
+        isMinimized = false;
+      }
+
+      function syncPlayerInfo() {
+        const title = document.getElementById("playerTitle").textContent;
+        const artist = document.getElementById("playerArtist").textContent;
+        const cover = document.getElementById("playerCover").src;
+        document.getElementById("miniTitle").textContent = title;
+        document.getElementById("miniArtist").textContent = artist;
+        document.getElementById("miniCover").src = cover;
+      }
+
+      function resetPlayerDisplay() {
+        document.getElementById("playerTitle").textContent = "No song";
+        document.getElementById("playerArtist").textContent = "Unknown";
+        document.getElementById("playerCover").src =
+          "https://via.placeholder.com/50";
+        document.getElementById("miniTitle").textContent = "No song";
+        document.getElementById("miniArtist").textContent = "Unknown";
+        document.getElementById("miniCover").src =
+          "https://via.placeholder.com/40";
+        progressBar.value = 0;
+        miniProgress.value = 0;
+        document.getElementById("currentTime").textContent = "0:00";
+        document.getElementById("duration").textContent = "0:00";
+        updatePlayButton(false);
+        updateMiniPlayButton(false);
+      }
+
+      function togglePlayerSize() {
+        if (!isSongLoaded) return;
+        if (isMinimized) {
+          showFullPlayer();
+        } else {
+          showMiniPlayer();
+        }
+      }
+
+      // Check auth
+      window.onload = () => {
+        if (!currentUser) {
+          window.location.href = "index.html";
+          return;
+        }
+        loadAllSongs();
+        setupAudioListeners();
+        setBackground("lib");
+        updatePlayerVisibility(); // Initially hide player
+      };
+
+      function setBackground(sectionId) {
+        const bg = backgroundGradients[sectionId] || "bg-black";
+        document.getElementById(
+          "contentBg"
+        ).className = `flex-1 flex flex-col transition-all duration-300 lg:ml-0 ${bg}`;
+      }
+
+      function toggleSidebar() {
+        const sidebar = document.getElementById("sidebar");
+        const overlay = document.getElementById("sidebarOverlay");
+        sidebar.classList.toggle("-translate-x-full");
+        overlay.classList.toggle("hidden");
+        if (!sidebar.classList.contains("-translate-x-full")) {
+          document.body.style.overflow = "hidden"; // Prevent body scroll on mobile
+        } else {
+          document.body.style.overflow = "";
+        }
+      }
+
+      // Audio setup
+      function setupAudioListeners() {
+        audioPlayer.addEventListener("timeupdate", () => {
+          if (audioPlayer.duration && isSongLoaded) {
+            const progress =
+              (audioPlayer.currentTime / audioPlayer.duration) * 100;
+            progressBar.value = progress;
+            miniProgress.value = progress;
+            document.getElementById("currentTime").textContent = formatTime(
+              audioPlayer.currentTime
+            );
+            document.getElementById("duration").textContent = formatTime(
+              audioPlayer.duration
+            );
+          }
+        });
+        progressBar.addEventListener("input", (e) => {
+          if (isSongLoaded) {
+            audioPlayer.currentTime =
+              (e.target.value / 100) * audioPlayer.duration;
+          }
+        });
+        miniProgress.addEventListener("input", (e) => {
+          if (isSongLoaded) {
+            audioPlayer.currentTime =
+              (e.target.value / 100) * audioPlayer.duration;
+          }
+        });
+        // Hide player when audio ends (optional, to reset to no song state)
+        audioPlayer.addEventListener("ended", () => {
+          isSongLoaded = false;
+          currentSongIndex = -1;
+          updatePlayerVisibility();
+        });
+        audioPlayer.addEventListener("play", () => {
+          updatePlayButton(true);
+          updateMiniPlayButton(true);
+        });
+        audioPlayer.addEventListener("pause", () => {
+          updatePlayButton(false);
+          updateMiniPlayButton(false);
+        });
+      }
+
+      function formatTime(sec) {
+        const m = Math.floor(sec / 60);
+        const s = Math.floor(sec % 60);
+        return `${m}:${s.toString().padStart(2, "0")}`;
+      }
+
+      // Load & display
+      async function loadAllSongs() {
+        const result = await eel.get_all_songs()();
+        if (result.status === "success") {
+          currentSongs = result.data;
+          currentSongIndex = -1; // Reset index
+          displaySongs(currentSongs, "lib");
+        }
+      }
+
+      function displaySongs(songs, sectionId) {
+        const container = document.getElementById(sectionId);
+        container.innerHTML = songs
+          .map(
+            (s, index) => `
+                <div onclick="playSong(${
+                  s.song_id
+                }, ${index})" class="group cursor-pointer transition-all duration-200 hover:scale-105 active:scale-95 bg-gray-900 rounded-xl p-3 shadow-sm hover:shadow-md hover:bg-gray-800">
+                    <div class="relative overflow-hidden rounded-lg mb-2">
+                        <img src="${
+                          s.cover_data || "https://via.placeholder.com/200"
+                        }" class="w-full aspect-square object-cover group-hover:scale-110 transition-transform duration-300" alt="${
+              s.title
+            }">
+                        <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-all duration-300">
+                            <button class="w-8 h-8 lg:w-10 lg:h-10 bg-gradient-to-r from-yellow-400 to-yellow-500 rounded-full flex items-center justify-center text-black hover:from-yellow-300 hover:to-yellow-400 transition-all duration-200 active:scale-95 shadow-lg">
+                                <i class="fas fa-play text-sm"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <p class="text-yellow-400 font-bold text-xs lg:text-sm truncate">${
+                      s.title
+                    }</p>
+                    <p class="text-xs text-gray-400 truncate">${s.artist}</p>
+                </div>
+            `
+          )
+          .join("");
+      }
+
+      // Player
+      async function playSong(songId, index) {
+        const result = await eel.get_song(songId)();
+        if (result.status === "success") {
+          const s = result.data;
+          audioPlayer.src = s.audio_data;
+          document.getElementById("playerTitle").textContent = s.title;
+          document.getElementById("playerArtist").textContent = s.artist;
+          document.getElementById("playerCover").src =
+            s.cover_data || "https://via.placeholder.com/50";
+          audioPlayer.play();
+          isSongLoaded = true;
+          currentSongIndex = index || 0;
+          updatePlayerVisibility();
+          updatePlayButton(true);
+          syncPlayerInfo();
+        }
+      }
+
+      function nextSong() {
+        if (
+          currentSongs.length === 0 ||
+          currentSongIndex >= currentSongs.length - 1
+        )
+          return;
+        currentSongIndex++;
+        playSong(currentSongs[currentSongIndex].song_id, currentSongIndex);
+      }
+
+      function previousSong() {
+        if (currentSongs.length === 0 || currentSongIndex <= 0) return;
+        currentSongIndex--;
+        playSong(currentSongs[currentSongIndex].song_id, currentSongIndex);
+      }
+
+      function togglePlay() {
+        if (!isSongLoaded) return; // Prevent action if no song loaded
+        if (audioPlayer.paused) {
+          audioPlayer.play();
+        } else {
+          audioPlayer.pause();
+        }
+        updatePlayerVisibility(); // Ensure visible even when paused
+      }
+
+      function updatePlayButton(isPlaying) {
+        playBtn.innerHTML = isPlaying
+          ? '<i class="fas fa-pause text-sm lg:text-base"></i>'
+          : '<i class="fas fa-play text-sm lg:text-base"></i>';
+      }
+
+      function updateMiniPlayButton(isPlaying) {
+        miniPlayBtn.innerHTML = isPlaying
+          ? '<i class="fas fa-pause text-xs"></i>'
+          : '<i class="fas fa-play text-xs"></i>';
+      }
+
+      function toggleFavorite() {
+        if (!isSongLoaded) return; // Prevent action if no song loaded
+        document
+          .getElementById("favoriteBtn")
+          .classList.toggle("text-yellow-400");
+        document
+          .getElementById("favoriteBtn")
+          .classList.toggle("text-gray-400");
+        const icon = document.querySelector("#favoriteBtn i");
+        if (icon.classList.contains("far")) {
+          icon.classList.remove("far");
+          icon.classList.add("fas");
+        } else {
+          icon.classList.remove("fas");
+          icon.classList.add("far");
+        }
+      }
+
+      async function searchSongs() {
+        const query = document.getElementById("search").value.trim();
+        if (!query) {
+          loadAllSongs();
+          return;
+        }
+        const result = await eel.search_songs(query)();
+        if (result.status === "success") {
+          displaySongs(result.data, "lib");
+        }
+      }
+
+      // Sections
+      function section(s) {
+        ["lib", "pl", "fav"].forEach((x) =>
+          document.getElementById(x).classList.add("hidden")
+        );
+        document.getElementById(s).classList.remove("hidden");
+
+        const titles = { lib: "Library", pl: "Playlists", fav: "Favorites" };
+        document.getElementById("sectionTitle").textContent = titles[s];
+
+        setBackground(s);
+
+        if (s === "fav") loadFavorites();
+        if (s === "pl") loadPlaylists();
+      }
+
+      // Upload Modal
+      function showUploadModal() {
+        document.getElementById("uploadModal").classList.remove("hidden");
+      }
+
+      function closeUploadModal() {
+        document.getElementById("uploadModal").classList.add("hidden");
+        document.getElementById("uploadForm").reset();
+        document.getElementById("audioName").textContent = "Choose audio file";
+        document.getElementById("coverName").textContent = "Choose cover image";
+        document.getElementById("progress").classList.add("hidden");
+        document.getElementById("uploadMsg").classList.add("hidden");
+      }
+
+      document.getElementById("audio")?.addEventListener("change", (e) => {
+        document.getElementById("audioName").textContent =
+          e.target.files[0]?.name || "Choose audio file";
+      });
+
+      document.getElementById("cover")?.addEventListener("change", (e) => {
+        document.getElementById("coverName").textContent =
+          e.target.files[0]?.name || "Choose cover image";
+      });
+
+      async function upload(e) {
+        e.preventDefault();
+
+        const audioFile = document.getElementById("audio").files[0];
+        const coverFile = document.getElementById("cover").files[0];
+        const title = document.getElementById("title").value;
+        const artist = document.getElementById("artist").value;
+        const genre = document.getElementById("genre").value;
+        const album = document.getElementById("album").value;
+
+        if (!audioFile) {
+          showUploadMsg("Please select an audio file", "error");
+          return;
+        }
+
+        document.getElementById("progress").classList.remove("hidden");
+
+        const audioReader = new FileReader();
+        audioReader.onload = (e) => {
+          const audioB64 = e.target.result;
+          document.getElementById("bar").style.width = "50%";
+
+          if (coverFile) {
+            const coverReader = new FileReader();
+            coverReader.onload = (e2) => {
+              saveS(title, artist, genre, album, audioB64, e2.target.result);
+            };
+            coverReader.readAsDataURL(coverFile);
+          } else {
+            saveS(title, artist, genre, album, audioB64, "");
+          }
+        };
+        audioReader.readAsDataURL(audioFile);
+      }
+
+      async function saveS(title, artist, genre, album, audio, cover) {
+        const res = await eel.save_song(
+          currentUser,
+          title,
+          artist,
+          genre,
+          album,
+          audio,
+          cover
+        )();
+
+        document.getElementById("bar").style.width = "100%";
+
+        if (res.status === "success") {
+          showUploadMsg("Song uploaded successfully!", "success");
+          setTimeout(() => {
+            closeUploadModal();
+            loadAllSongs();
+          }, 1500);
+        } else {
+          showUploadMsg("Error uploading song", "error");
+          document.getElementById("progress").classList.add("hidden");
+        }
+      }
+
+      function showUploadMsg(msg, type) {
+        const el = document.getElementById("uploadMsg");
+        el.textContent = msg;
+        el.className = `block p-3 rounded-xl text-sm text-center ${
+          type === "error"
+            ? "bg-red-900/20 text-red-300 border border-red-800"
+            : "bg-green-900/20 text-green-300 border border-green-800"
+        }`;
+      }
+
+      // Playlists
+      function showPlaylistModal() {
+        document.getElementById("playlistModal").classList.remove("hidden");
+      }
+
+      function closePlaylistModal() {
+        document.getElementById("playlistModal").classList.add("hidden");
+        document.getElementById("playlistName").value = "";
+        document.getElementById("playlistDesc").value = "";
+      }
+
+      async function createPlaylist() {
+        const name = document.getElementById("playlistName").value.trim();
+        const desc = document.getElementById("playlistDesc").value.trim();
+
+        if (!name) {
+          alert("Please enter a playlist name");
+          return;
+        }
+
+        const result = await eel.create_playlist(currentUser, name, desc)();
+        if (result.status === "success") {
+          closePlaylistModal();
+          loadPlaylists();
+        }
+      }
+
+      async function loadPlaylists() {
+        const result = await eel.get_user_playlists(currentUser)();
+        if (result.status === "success") {
+          const grid = document.getElementById("playlistsGrid");
+          grid.innerHTML = result.data
+            .map(
+              (p) => `
+                    <div class="bg-gray-900 border border-gray-800 rounded-xl p-4 lg:p-6 hover:border-yellow-400/50 transition-all duration-200 cursor-pointer hover:scale-105 active:scale-95 shadow-sm hover:shadow-md">
+                        <div class="text-2xl lg:text-4xl text-yellow-400 mb-3 lg:mb-4 flex justify-center"><i class="fas fa-music"></i></div>
+                        <h3 class="font-bold text-sm lg:text-base text-center mb-1">${
+                          p.playlist_name
+                        }</h3>
+                        <p class="text-xs lg:text-sm text-gray-400 text-center">${
+                          p.song_count || 0
+                        } songs</p>
+                    </div>
+                `
+            )
+            .join("");
+        }
+      }
+
+      // Favorites
+      async function loadFavorites() {
+        const result = await eel.get_user_favorites(currentUser)();
+        if (result.status === "success") {
+          displaySongs(result.data, "fav");
+        }
+      }
+
+      function logout() {
+        localStorage.clear();
+        isSongLoaded = false;
+        updatePlayerVisibility();
+        window.location.href = "index.html";
+      }
+    </script>
+  </body>
+</html>

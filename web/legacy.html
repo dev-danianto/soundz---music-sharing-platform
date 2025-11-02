@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Title Website -->
+    <title>BTSNet - Bintang Timur SNet</title>
+
+    <!-- CSS Output Connector  -->
+    <link href="./output.css" rel="stylesheet" />
+
+    <!-- JavaScript File Connector -->
+    <script src="./script.js"></script>
+
+    <!-- Font Connector (Google - Special Gothic)-->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Special+Gothic:wght@400..700&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body class="font-['Ubuntu']">
+    <!-- Navbar -->
+    <nav class="bg-white shadow-md fixed w-full top-0 z-50">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center h-16">
+          <div class="flex items-center">
+            <h1 class="text-2xl font-bold text-red-600 font-['Special_Gothic']">
+              BTSNet
+            </h1>
+          </div>
+          <div class="hidden md:flex space-x-8">
+            <a
+              href="#beranda"
+              class="text-gray-700 hover:text-red-600 transition"
+              >Beranda</a
+            >
+            <a href="#paket" class="text-gray-700 hover:text-red-600 transition"
+              >Paket Internet</a
+            >
+            <a
+              href="#layanan"
+              class="text-gray-700 hover:text-red-600 transition"
+              >Layanan</a
+            >
+            <a
+              href="#kontak"
+              class="text-gray-700 hover:text-red-600 transition"
+              >Kontak</a
+            >
+          </div>
+          <button
+            class="bg-red-600 text-white px-6 py-2 rounded-lg hover:bg-red-700 transition"
+          >
+            Berlangganan
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section
+      id="beranda"
+      class="pt-24 pb-16 bg-gradient-to-br from-red-50 to-white"
+    >
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid md:grid-cols-2 gap-12 items-center">
+          <div>
+            <h2
+              class="text-5xl font-bold text-gray-900 mb-4 font-['Special_Gothic']"
+            >
+              Internet Super Cepat untuk Rumah Anda
+            </h2>
+            <p class="text-xl text-gray-600 mb-8">
+              Nikmati koneksi internet fiber optik hingga 100 Mbps dengan harga
+              terjangkau. Streaming, gaming, dan bekerja tanpa hambatan!
+            </p>
+            <div class="flex gap-4">
+              <button
+                class="bg-red-600 text-white px-8 py-3 rounded-lg hover:bg-red-700 transition font-semibold"
+              >
+                Lihat Paket
+              </button>
+              <button
+                class="border-2 border-red-600 text-red-600 px-8 py-3 rounded-lg hover:bg-red-50 transition font-semibold"
+              >
+                Hubungi Kami
+              </button>
+            </div>
+          </div>
+          <div
+            class="bg-gray-200 h-96 rounded-2xl flex items-center justify-center"
+          >
+            <span class="text-gray-500 text-lg">Hero Image Placeholder</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Paket Internet Section -->
+    <section id="paket" class="py-16 bg-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+          <h2
+            class="text-4xl font-bold text-gray-900 mb-4 font-['Special_Gothic']"
+          >
+            Pilih Paket Sesuai Kebutuhan
+          </h2>
+          <p class="text-gray-600 text-lg">
+            Berbagai pilihan paket internet dengan harga terbaik
+          </p>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-8">
+          <!-- Paket 1 -->
+          <div
+            class="border-2 border-gray-200 rounded-2xl p-8 hover:border-red-600 hover:shadow-xl transition"
+          >
+            <div
+              class="bg-gray-200 h-48 rounded-xl mb-6 flex items-center justify-center"
+            >
+              <span class="text-gray-500">Icon Paket</span>
+            </div>
+            <h3 class="text-2xl font-bold text-gray-900 mb-2">Paket Basic</h3>
+            <p class="text-gray-600 mb-4">Cocok untuk browsing & streaming</p>
+            <div class="mb-6">
+              <span class="text-4xl font-bold text-red-600">Rp 250K</span>
+              <span class="text-gray-600">/bulan</span>
+            </div>
+            <ul class="space-y-3 mb-8">
+              <li class="flex items-center text-gray-700">
+                <span class="text-green-500 mr-2">✓</span> Kecepatan hingga 30
+                Mbps
+              </li>
+              <li class="flex items-center text-gray-700">
+                <span class="text-green-500 mr-2">✓</span> Unlimited Quota
+              </li>
+              <li class="flex items-center text-gray-700">
+                <span class="text-green-500 mr-2">✓</span> Free Router
+              </li>
+            </ul>
+            <button
+              class="w-full bg-red-600 text-white py-3 rounded-lg hover:bg-red-700 transition font-semibold"
+            >
+              Pilih Paket
+            </button>
+          </div>
+
+          <!-- Paket 2 - Popular -->
+          <div
+            class="border-2 border-red-600 rounded-2xl p-8 relative shadow-xl"
+          >
+            <div class="absolute -top-4 left-1/2 transform -translate-x-1/2">
+              <span
+                class="bg-red-600 text-white px-6 py-1 rounded-full text-sm font-semibold"
+              >
+                TERPOPULER
+              </span>
+            </div>
+            <div
+              class="bg-gray-200 h-48 rounded-xl mb-6 flex items-center justify-center"
+            >
+              <span class="text-gray-500">Icon Paket</span>
+            </div>
+            <h3 class="text-2xl font-bold text-gray-900 mb-2">Paket Premium</h3>
+            <p class="text-gray-600 mb-4">Untuk keluarga & gaming</p>
+            <div class="mb-6">
+              <span class="text-4xl font-bold text-red-600">Rp 400K</span>
+              <span class="text-gray-600">/bulan</span>
+            </div>
+            <ul class="space-y-3 mb-8">
+              <li class="flex items-center text-gray-700">
+                <span class="text-green-500 mr-2">✓</span> Kecepatan hingga 50
+                Mbps
+              </li>
+              <li class="flex items-center text-gray-700">
+                <span class="text-green-500 mr-2">✓</span> Unlimited Quota
+              </li>
+              <li class="flex items-center text-gray-700">
+                <span class="text-green-500 mr-2">✓</span> Free Router + TV Box
+              </li>
+            </ul>
+            <button
+              class="w-full bg-red-600 text-white py-3 rounded-lg hover:bg-red-700 transition font-semibold"
+            >
+              Pilih Paket
+            </button>
+          </div>
+
+          <!-- Paket 3 -->
+          <div
+            class="border-2 border-gray-200 rounded-2xl p-8 hover:border-red-600 hover:shadow-xl transition"
+          >
+            <div
+              class="bg-gray-200 h-48 rounded-xl mb-6 flex items-center justify-center"
+            >
+              <span class="text-gray-500">Icon Paket</span>
+            </div>
+            <h3 class="text-2xl font-bold text-gray-900 mb-2">
+              Paket Ultimate
+            </h3>
+            <p class="text-gray-600 mb-4">Untuk bisnis & profesional</p>
+            <div class="mb-6">
+              <span class="text-4xl font-bold text-red-600">Rp 600K</span>
+              <span class="text-gray-600">/bulan</span>
+            </div>
+            <ul class="space-y-3 mb-8">
+              <li class="flex items-center text-gray-700">
+                <span class="text-green-500 mr-2">✓</span> Kecepatan hingga 100
+                Mbps
+              </li>
+              <li class="flex items-center text-gray-700">
+                <span class="text-green-500 mr-2">✓</span> Unlimited Quota
+              </li>
+              <li class="flex items-center text-gray-700">
+                <span class="text-green-500 mr-2">✓</span> Premium Support 24/7
+              </li>
+            </ul>
+            <button
+              class="w-full bg-red-600 text-white py-3 rounded-lg hover:bg-red-700 transition font-semibold"
+            >
+              Pilih Paket
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Keunggulan Section -->
+    <section id="layanan" class="py-16 bg-gray-50">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+          <h2
+            class="text-4xl font-bold text-gray-900 mb-4 font-['Special_Gothic']"
+          >
+            Mengapa Memilih BTSNet?
+          </h2>
+          <p class="text-gray-600 text-lg">
+            Layanan terbaik untuk koneksi internet Anda
+          </p>
+        </div>
+
+        <div class="grid md:grid-cols-4 gap-8">
+          <div
+            class="bg-white rounded-xl p-6 text-center hover:shadow-lg transition"
+          >
+            <div
+              class="bg-red-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4"
+            >
+              <span class="text-red-600 text-2xl font-bold">⚡</span>
+            </div>
+            <h3 class="text-xl font-bold text-gray-900 mb-2">Super Cepat</h3>
+            <p class="text-gray-600">
+              Fiber optik dengan kecepatan stabil hingga 100 Mbps
+            </p>
+          </div>
+
+          <div
+            class="bg-white rounded-xl p-6 text-center hover:shadow-lg transition"
+          >
+            <div
+              class="bg-red-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4"
+            >
+              <span class="text-red-600 text-2xl font-bold">∞</span>
+            </div>
+            <h3 class="text-xl font-bold text-gray-900 mb-2">Unlimited</h3>
+            <p class="text-gray-600">
+              Tanpa batasan kuota, streaming sepuasnya
+            </p>
+          </div>
+
+          <div
+            class="bg-white rounded-xl p-6 text-center hover:shadow-lg transition"
+          >
+            <div
+              class="bg-red-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4"
+            >
+              <span class="text-red-600 text-2xl font-bold">24/7</span>
+            </div>
+            <h3 class="text-xl font-bold text-gray-900 mb-2">Support 24/7</h3>
+            <p class="text-gray-600">Tim support siap membantu kapan saja</p>
+          </div>
+
+          <div
+            class="bg-white rounded-xl p-6 text-center hover:shadow-lg transition"
+          >
+            <div
+              class="bg-red-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4"
+            >
+              <span class="text-red-600 text-2xl font-bold">💰</span>
+            </div>
+            <h3 class="text-xl font-bold text-gray-900 mb-2">Harga Terbaik</h3>
+            <p class="text-gray-600">
+              Paket internet dengan harga paling terjangkau
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Testimoni Section -->
+    <section class="py-16 bg-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+          <h2
+            class="text-4xl font-bold text-gray-900 mb-4 font-['Special_Gothic']"
+          >
+            Apa Kata Pelanggan Kami?
+          </h2>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-8">
+          <div class="bg-gray-50 rounded-xl p-8">
+            <div class="flex items-center mb-4">
+              <div class="bg-gray-300 w-12 h-12 rounded-full mr-4"></div>
+              <div>
+                <h4 class="font-bold text-gray-900">Budi Santoso</h4>
+                <p class="text-gray-600 text-sm">Jakarta Selatan</p>
+              </div>
+            </div>
+            <p class="text-gray-700">
+              "Internet sangat cepat dan stabil. Cocok untuk keluarga yang suka
+              streaming dan gaming!"
+            </p>
+            <div class="text-yellow-500 mt-4">★★★★★</div>
+          </div>
+
+          <div class="bg-gray-50 rounded-xl p-8">
+            <div class="flex items-center mb-4">
+              <div class="bg-gray-300 w-12 h-12 rounded-full mr-4"></div>
+              <div>
+                <h4 class="font-bold text-gray-900">Siti Rahma</h4>
+                <p class="text-gray-600 text-sm">Tangerang</p>
+              </div>
+            </div>
+            <p class="text-gray-700">
+              "Pelayanan customer service sangat responsif. Harga juga
+              terjangkau untuk kecepatan yang didapat."
+            </p>
+            <div class="text-yellow-500 mt-4">★★★★★</div>
+          </div>
+
+          <div class="bg-gray-50 rounded-xl p-8">
+            <div class="flex items-center mb-4">
+              <div class="bg-gray-300 w-12 h-12 rounded-full mr-4"></div>
+              <div>
+                <h4 class="font-bold text-gray-900">Ahmad Rizki</h4>
+                <p class="text-gray-600 text-sm">Bekasi</p>
+              </div>
+            </div>
+            <p class="text-gray-700">
+              "Sudah 2 tahun pakai BTSNet, tidak pernah kecewa. Internet jarang
+              down dan support cepat tanggap."
+            </p>
+            <div class="text-yellow-500 mt-4">★★★★★</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-16 bg-gradient-to-r from-red-600 to-red-700">
+      <div class="max-w-4xl mx-auto text-center px-4">
+        <h2 class="text-4xl font-bold text-white mb-4 font-['Special_Gothic']">
+          Siap Nikmati Internet Super Cepat?
+        </h2>
+        <p class="text-white text-lg mb-8">
+          Daftar sekarang dan dapatkan promo pemasangan gratis!
+        </p>
+        <button
+          class="bg-white text-red-600 px-8 py-4 rounded-lg hover:bg-gray-100 transition font-semibold text-lg"
+        >
+          Berlangganan Sekarang
+        </button>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="kontak" class="bg-gray-900 text-white py-12">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid md:grid-cols-4 gap-8">
+          <div>
+            <h3 class="text-2xl font-bold mb-4 font-['Special_Gothic']">
+              BTSNet
+            </h3>
+            <p class="text-gray-400">
+              Penyedia layanan internet fiber optik terpercaya untuk rumah dan
+              bisnis Anda.
+            </p>
+          </div>
+
+          <div>
+            <h4 class="text-lg font-semibold mb-4">Layanan</h4>
+            <ul class="space-y-2 text-gray-400">
+              <li>
+                <a href="#" class="hover:text-white transition"
+                  >Internet Rumah</a
+                >
+              </li>
+              <li>
+                <a href="#" class="hover:text-white transition"
+                  >Internet Bisnis</a
+                >
+              </li>
+              <li>
+                <a href="#" class="hover:text-white transition">TV Kabel</a>
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 class="text-lg font-semibold mb-4">Perusahaan</h4>
+            <ul class="space-y-2 text-gray-400">
+              <li>
+                <a href="#" class="hover:text-white transition">Tentang Kami</a>
+              </li>
+              <li><a href="#" class="hover:text-white transition">Karir</a></li>
+              <li><a href="#" class="hover:text-white transition">Blog</a></li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 class="text-lg font-semibold mb-4">Kontak</h4>
+            <ul class="space-y-2 text-gray-400">
+              <li>Email: info@btsnet.id</li>
+              <li>Telp: 021-12345678</li>
+              <li>WhatsApp: 08123456789</li>
+            </ul>
+          </div>
+        </div>
+
+        <div
+          class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400"
+        >
+          <p>&copy; 2025 BTSNet - Bintang Timur SNet. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
